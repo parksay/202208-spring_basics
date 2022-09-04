@@ -8,10 +8,10 @@ import hello.core.member.MemberRepository;
 import hello.core.member.MemoryMemberRepository;
 
 public class OrderServiceImpl implements OrderService {
-    // 주문을 생성하는 역할의 구현체
+    //  주문 정보를 관리하는 역할의 구현체
 
     // private final MemberRepository memberRepository = new MemoryMemberRepository();
-    // private final DiscountPolicy discountPolicy = new FixDiscountPolicy();
+    // // private final DiscountPolicy discountPolicy = new FixDiscountPolicy();
     // 원래는 할인해주는 금액이 고정되어 있는 고정 할인 정책 FixDiscountPolicy 를 사용했음
     // 나중에 요구 사항이 바껴서 구매 금액에 따라서 일정한 비율만큼 할인해 주는 비율 할인 정책을 사용하기로 함.
     // private final DiscountPolicy discountPolicy = new RateDiscountPolicy();
@@ -24,7 +24,7 @@ public class OrderServiceImpl implements OrderService {
     // 그렇게 되려면 무엇을 어떻게 수정해야 하는가?
     // DIP는 쉬움. 그냥 구현 클래스는 지우고 인터페이스만 남기면 됨.
     // private DiscountPolicy discountPolicy;
-    // 이렇게 하면 구현 클래스인 FixDiscountPolicy나 RateDiscountPolicy는 등장하지 않고, 인터페이스인 DiscountPolicy만 등장함.
+    // 이렇게 하면 구현 클래스인 FixDiscountPolicy나 RateDiscountPolicy는 등장하지 않고, 인터페이스인 DiscountPolicy만 등장함. 즉, 인터페이스에만 의존함.
     // 보니까 DIP는 달성함. 그런데 이 상태로 코드 실행하면 당연히 에러나겠지. DiscountPolicy 안에 들어 있는 구현체가 없으니까 NullPointerException 뜨겠지. null에다가 . 찍어서 뭐 실행하면 NPE 뜨는 거 아냐.
     // 그럼 이걸 어떻게 해결해야 할까...?
 
@@ -64,4 +64,6 @@ public class OrderServiceImpl implements OrderService {
 
         return new Order(memberId, itemName, itemPrice, discountPrice);
     }
+    
+    // intelliJ 단축키 - Ctrl + Alt + 화살표 좌우 : 바로 이전에 열었던 탭 or 다음으로 열었던 탭
 }

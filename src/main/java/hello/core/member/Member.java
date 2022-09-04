@@ -1,6 +1,7 @@
 package hello.core.member;
 
 public class Member {
+    // 회원 정보를 담는 엔터티. 아이디, 이름, 회원 등급.
 
     private long id;
     private String name;

@@ -1,8 +1,7 @@
 package hello.core.order;
 
 public class Order {
-    // 주문 엔터티 생선
-    // 주문 정보가 들어 있음
+    // 주문 정보를 들고 있는 주문 엔터티
     // 누가 무슨 상품을 샀고, 가격은 얼만에 얼마 만큼 할인해 줄지
     
     private Long memberId;

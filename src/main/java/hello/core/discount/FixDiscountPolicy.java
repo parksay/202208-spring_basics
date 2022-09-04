@@ -15,4 +15,7 @@ public class FixDiscountPolicy implements DiscountPolicy {
             return 0;   // 할인 금액 없음
         }
     }
+    
+    
+    // intelliJ 단축키 - Alt + 1 / 2 / 3 / 4 / 5 ... Project Explorer 창이나 Console 창, 디버그창, 탐색창 등 열고 닫기 
 }

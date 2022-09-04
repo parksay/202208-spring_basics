@@ -10,6 +10,7 @@ import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 // intelliJ 단축키 - 앞에 class name 에서 alt + enter 누르면 static import 있음. Add on-demand static import
 // 위에 모여 있는 게 static import 한 class 목록들임. import static ~~~
+
 class RateDiscountPolicyTest {
 
 
