@@ -1,16 +1,32 @@
 package hello.core.order;
 
+import hello.core.AppConfig;
 import hello.core.member.Grade;
 import hello.core.member.Member;
 import hello.core.member.MemberService;
 import hello.core.member.MemberServiceImpl;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class OrderServiceTest {
 
-    MemberService memberService = new MemberServiceImpl();
-    OrderService orderService = new OrderServiceImpl();
+    // MemberService memberService = new MemberServiceImpl();
+    // OrderService orderService = new OrderServiceImpl();
+    // 원래 코드는 위쪽. App 이 직접 MemberServiceImpl 와 OrderServiceImpl 를 생성함.
+    // 그러면 MemberServiceImpl 는 MemoryMemberRepository 를 생성하고, OrderServiceImpl는 MemoryMemberRepository와 FixDiscountPolicy 를 생성했음.
+    // 마치 연쇄 반응처럼. 사슬 구조였지.
+    // 그런데 지금은 AppConfig 에서 다 받아다 쓰도록 바꾸기.
+
+    MemberService memberService;
+    OrderService orderService;
+
+    @BeforeEach
+    public void beforeEach() {
+        AppConfig appConfig = new AppConfig();
+        memberService = appConfig.memberService();
+        orderService = appConfig.orderService();
+    }
 
     @Test
     void createOrder() {

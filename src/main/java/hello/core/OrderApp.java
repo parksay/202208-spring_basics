@@ -11,8 +11,15 @@ import hello.core.order.OrderServiceImpl;
 public class OrderApp {
 
     public static void main(String[] args) {
-        MemberService memberService = new MemberServiceImpl();
-        OrderService orderService = new OrderServiceImpl();
+        // MemberService memberService = new MemberServiceImpl();
+        // OrderService orderService = new OrderServiceImpl();
+        // 원래 코드는 위쪽. App 이 직접 MemberServiceImpl 와 OrderServiceImpl 를 생성함.
+        // 그러면 MemberServiceImpl 는 MemoryMemberRepository 를 생성하고, OrderServiceImpl는 MemoryMemberRepository와 FixDiscountPolicy 를 생성했음.
+        // 마치 연쇄 반응처럼. 사슬 구조였지.
+        // 그런데 지금은 AppConfig 에서 다 받아다 쓰도록 바꾸기.
+        AppConfig appConfig = new AppConfig();
+        MemberService memberService = appConfig.memberService();
+        OrderService orderService = appConfig.orderService();
 
         Long memberId = 1L;
         // 회원 정보 하나를 생성
