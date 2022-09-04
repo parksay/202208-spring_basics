@@ -2,6 +2,7 @@ package hello.core;
 
 import hello.core.discount.DiscountPolicy;
 import hello.core.discount.FixDiscountPolicy;
+import hello.core.discount.RateDiscountPolicy;
 import hello.core.member.MemberRepository;
 import hello.core.member.MemberService;
 import hello.core.member.MemberServiceImpl;
@@ -89,7 +90,11 @@ public class AppConfig {
     }
 
     public DiscountPolicy discountPolicy() {
-        return new FixDiscountPolicy();
+        // return new FixDiscountPolicy();
+        return new RateDiscountPolicy();
+        // 이제 할인 정책을 고정 할인 정책에서 비율 할인 정책으로 바꿨다고 해도 여기 AppConfig 의 discountPolicy 메소드만 수정하면 됨.
+        // 클라이언트 쪽인 OrderServiceImpl 쪽은 내용을 전혀 수정할 필요가 없음.
+        // 이렇게 OCP 와 DIP 를 지키면서 코드를 짤 수 있게 됨.
     }
-
+    // intelliJ 단축키 - Ctrl + F5 : 가장 마지막에 실행했던 App 실행하기
 }

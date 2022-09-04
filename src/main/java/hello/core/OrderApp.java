@@ -28,7 +28,7 @@ public class OrderApp {
         memberService.join(member);
 
         // 회원, 상품, 가격 -> 누가 무엇을 얼마에 샀는지 정보를 가지고 주문 정보 생성
-        Order order = orderService.createOrder(memberId, "itemA", 10000);
+        Order order = orderService.createOrder(memberId, "itemA", 20000);
 
         // 주문한 결과 가격을 알아서 잘 계산해 줬는지 확인
         System.out.println("order = " + order);
