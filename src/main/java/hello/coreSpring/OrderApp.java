@@ -19,6 +19,14 @@ public class OrderApp {
         MemberService memberService = applicationContext.getBean("memberService", MemberService.class);
         OrderService orderService = applicationContext.getBean("orderService", OrderService.class);
 
+        // ApplicationContext 는 인터페이스임.
+        // 즉, 이 다형성에 따라서 이 역할을 수행하는 구현체는 여러 종류가 있을 수 있음.
+        // AnnotationConfigApplicationContext 는 그 구현체임.
+        // AnnotationConfigApplicationContext 는 여러 종류의 구현체 중에서 Annotation 으로 Config 정보를 표현하는 방식의 ApplicationContext 임.
+        // 그리고 그 구현체를 만드는 데에 파라미터로 AppConfig 라는 클래스를 넣어줌.
+        // 실행을 하면 파라미터로 넣어 줬던 AppConfig 안에서 @Bean 어노테이션이 붙어 있는 메소드들을 죄다 불러다가 실행함.
+        // 그 메소드의 이름을 키 값으로 갖고, 그 메소드의 return 값을 내용으로 해서 컨테이너에 저장해 둠.
+        // 이렇게 하고 나서 의존 관계를 여기저기 엮어서 구성함.
 
         Long memberId = 1L;
         // 회원 정보 하나를 생성
