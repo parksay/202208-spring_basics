@@ -109,4 +109,16 @@ public class ApplicationContextExtendsFindTest {
     }
 
 
+    // 스프링 컨테이너 상속 관계
+    // 가장 상위에는 BeanFactory 가 있음.
+    // 방금 우리가 사용한 거의 모든 기술 getBean 이나 getBeansOfType 이런 것들 다 BeanFactory 에서 제공하는 기능
+    // 그럼 처음부터 BeanFactory 가져다 쓰면 될 걸 왜 AnnotationConfigApplicationContext 같은 걸 쓰냐?
+    // ApplicationContext 는 BeanFactory 도 상속 받았지만, 그 외에 여러 가지 다른 인터페스도 상속 받고 있음
+    // BeanFactory 뿐만 아니라 스프링에서 제공하는 편리한 기능등을 모아서 ApplicationContext 에 모아둔 것.
+    // 어떤 개발을 할 때든 비슷하게 필요한 기능들을 기본적으로 가지고 있음.
+    // 실제로 ApplicationContext 선언하는 거 보면 엄청 다양한 걸 상속받고 있음.
+    // public interface ApplicationContext extends EnvironmentCapable, ListableBeanFactory, HierarchicalBeanFactory,
+    //		MessageSource, ApplicationEventPublisher, ResourcePatternResolver
+    // 다국어 설정할 때 유용한 spring Message, 테스트서버/운영서버 이런 거 구분해주는 기능, 등등.
+
 }
