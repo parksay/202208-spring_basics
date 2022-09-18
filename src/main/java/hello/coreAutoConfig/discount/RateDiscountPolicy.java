@@ -2,7 +2,9 @@ package hello.coreAutoConfig.discount;
 
 import hello.coreAutoConfig.member.Grade;
 import hello.coreAutoConfig.member.Member;
+import org.springframework.stereotype.Component;
 
+@Component
 public class RateDiscountPolicy implements DiscountPolicy {
 
     // 할인 정책 > 일정한 비율만큼 할인해주는 정책

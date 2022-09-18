@@ -3,7 +3,10 @@ package hello.coreAutoConfig.order;
 import hello.coreAutoConfig.discount.DiscountPolicy;
 import hello.coreAutoConfig.member.Member;
 import hello.coreAutoConfig.member.MemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class OrderServiceImpl implements OrderService {
     //  주문 정보를 관리하는 역할의 구현체
 
@@ -12,6 +15,10 @@ public class OrderServiceImpl implements OrderService {
 
     private final MemberRepository memberRepository;
     private final DiscountPolicy discountPolicy;
+
+    @Autowired
+    // 생성자에 이렇게 해 두면 자동으로 파라미터들에 의존관계 주입해 줌
+    // 생성자 파리미터에 들어 있는 애들을 type 으로 검색해서 맞는 애들 넣어줌
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
