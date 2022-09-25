@@ -121,4 +121,12 @@ public class ApplicationContextExtendsFindTest {
     //		MessageSource, ApplicationEventPublisher, ResourcePatternResolver
     // 다국어 설정할 때 유용한 spring Message, 테스트서버/운영서버 이런 거 구분해주는 기능, 등등.
 
+
+    // ================================
+    // 여기서 빈을 수동으로 조회하는 법을 배웠음
+    // @Autowired 라는 어노테이션을 이용하면 자동으로 빈을 찾아서 넣어줌
+    // 이것 말고도 @Autowired 에는 또 다른 기능이 있음
+    // 의존 관계 주입 받을 때 찾아온 Bean 들을 모두 꺼내올 수가 있음.
+    // 그 방법은 아래 디렉토리
+    // test > autowired > AllBeanTest
 }

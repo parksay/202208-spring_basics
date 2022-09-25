@@ -2,7 +2,10 @@ package hello.coreAutoConfig.discount;
 
 import hello.coreAutoConfig.member.Grade;
 import hello.coreAutoConfig.member.Member;
+import org.springframework.stereotype.Component;
 
+// @Component // 아래 테스트 실행할 때 각주 풀기
+// test > autowired > AllBeanTest
 public class FixDiscountPolicy implements DiscountPolicy {
     // 할인 정책 > 고정 금액만큼 할인해 주는 정책
     private int discountFixAmout = 1000; // 고정 할인 금액 1000원

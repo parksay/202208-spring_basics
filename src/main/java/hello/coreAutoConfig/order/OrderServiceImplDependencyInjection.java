@@ -119,6 +119,73 @@ public class OrderServiceImplDependencyInjection implements OrderService {
 
     }
 
+    // ==========================
+    // 의존 관계 주입할 때 주입 당하는 객체가 null일 때 어떻게 대응하는지 옵셔널하게 지정할 수가 있는데 그 방법은 아래 디렉토리
+    // test > autowired > AutowiredTest.class
+
+
+    // ==========================
+    // 이것 말고도 @Autowired 에는 또 다른 기능이 있음
+    // 의존 관계 주입 받을 때 찾아온 Bean 들을 모두 꺼내올 수가 있음.
+    // 그 방법은 아래 디렉토리
+    // test > autowired > AllBeanTest
+
+
+    // ==========================
+    // 의존 관계 주입할 때 클래스로 조회해서 객체를 넣어주는데, 만약에서 그 클래스 타입으로 여러 개가 조회되면 어떻게 동작할 것인가?
+    // 예전에 ac.getBean(DiscountPolicy.class); 이렇게 하면 그 인터페이스를 상속받은 클래스가 Fix 랑 Rate 랑 두 개가 있었고, 상위 클래스로 조회하면 하위 클래스들 다 받아오잖아
+    // 이럴 때 해결하는 방법이 여러 가지가 있음.
+
+    // @Autowired 필드의 이름을 맞춰 주기 / @Qualifier 어노테이션 활용하기 / @Primary 어노테이션 활용하기
+    // 첫째. @Autowired 필드의 이름을 맞춰 주기는 뭐냐 하면, @Autowired 어노테이션은 특별한 기능이 하나 더 있는데, 예를 들어서 아래 변수를 보자.
+    // @Autowired
+    // private DiscountPolicy fixDiscountPolicy
+    // 이렇게 해두면 DiscountPolicy 첫 번째로 클래스로 조회함.
+    // 그러면 여러 개가 조회되겠지.
+    // 그 중에서 빈 이름이 "fixDiscountPolicy" 인 빈을 찾아서 혹시 있으면 그걸 우선으로 해서 넣어줌.
+    // 그러니까 정리해 보자면 @Autowired 는 총 두 가지 순서로 의존 관계를 주입해 줌.
+    // 1. 클래스 타입으로 조회해서 일치하는 애들 모두 찾아 옴 / 2. 데리고 온 애들이 두 개 이상이면 변수 이름으로 한 번 더 찾아서 맞는 애를 넣어줌.
+
+    // 둘째. @Qualifier 는 빈 애들끼리 구분할 수 있는 요소를 추가로 하나 더 달아주는 것과 같음.
+    // 예를 들어서 아래.
+//    @Componenet
+//    @Qualifier("fixDiscountPolicy")
+//    public class FixDiscountPolicy implements  DiscountPolicy {
+//        // ~~~ do something
+//    }
+//    // 위처럼 선언하고 아래처럼 가져다 쓰고.
+//    // 선언할 때 @Qualifier 어노테이션을 붙이고 안에 이름 넣어줌.
+//    // 꺼내서 쓸 때 @Qualifier 어노테이션을 붙이고 안에 이름 넣어줌.
+//    @Component
+//    public class OrderServiceImpl implements  OrderService {
+//        @Autowired
+//        public OrderServiceImple(MemberRepository memberRepository, @Qualifier("fixDiscountPolicy")  DiscountPolicy discountPolicy) {
+//            // ~~~ do something
+//        }
+//    }
+    // 만약에 @Qualifier 안에 넣어주는 이름으로 찾아 봤는데 못 찾으면 어떻게 동작하나?
+    // 그러면 빈 이름이 맞는 애를 찾아옴.
+    // 얘도 @Autowired 처럼 총 두 가지 순서로 의존 관계를 찾아와서 주입해 줌
+    // 1. @Qualifier 안에 넣어주는 이름으로 찾아 봐서 짝이 맞는 애를 찾아 옴 / 2. @Qualifier 이름으로 짝이 되는 애가 없으면 빈 이름 중에는 맞는 애가 있는지 한 번 더 찾음.
+    // @Qualifier 를 선언하는 클래스랑 불러오는 클래스랑 실수로 이름을 다르게 넣어주면...?
+    // 그런 걸 방지하기 위해서 새로운 어노테이션을 만들기도 함.
+    // 디렉토리 main > coreAutoConfig > annotation > MainDiscountPolicy
+
+
+    // 셋째. @Primary 어노테이션 활용하기.
+    // @Autowired 로 일단 타입으로 빈을 조회해 보고, 빈을 여러 개 찾아 왔으면 그 중에서 @Primary 어노테이션이 붙은 애가 있는지 살펴서 그 친구를 우선으로 해서 넣어줌.
+    // 예를 들어 아래 코드
+//    @Component
+//    @Primary
+//    public class RateDiscountPolicy implements DiscountPolicy { // ~~~ do somehitng }
+//    @Component
+//    public class FixDiscountPolicy implements DiscountPolicy { // ~~~ do somehitng }
+    // 이를 테면 주로 쓰는 데이터베이스가 A고 가끔씩 B를 쓴다고 하면 A에다가 @Primary 어노테이션 박아 놓고 편하게 쓰다가 B 쓸 때만 따로 지정해서 부르면 됨.
+    // @Qualifier 는 단점이 선언하거나 꺼내 쓸 때마다 계속 @Qualifier ("~~~") 어노테이션을 붙여줘야 해. 귀찮.
+    // @Primary 는 한 번 붙여두면 계속 불러야 하는 건 없음. 편함.
+    // 둘이 같이 쓰면? @Primary 는 자동, 넓음. @Qualifier 는 수동. 이름까지 특정해서 지정. 우선순위는 당연히 @Qualifier 가 가져감.
+
+
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
         Member member = memberRepository.findById(memberId);

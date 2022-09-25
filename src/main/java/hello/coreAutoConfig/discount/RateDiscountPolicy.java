@@ -2,9 +2,12 @@ package hello.coreAutoConfig.discount;
 
 import hello.coreAutoConfig.member.Grade;
 import hello.coreAutoConfig.member.Member;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 @Component
+// @Primary // 아래 테스트 실행할 때 각주 풀기
+// test > autowired > AllBeanTest
 public class RateDiscountPolicy implements DiscountPolicy {
 
     // 할인 정책 > 일정한 비율만큼 할인해주는 정책
